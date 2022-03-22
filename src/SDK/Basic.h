@@ -14,7 +14,7 @@
 namespace SDK
 {
 
-void InitSdk(const std::string& moduleName, size_t gObjectsOffset, size_t gNamesOffset);
+void InitSdk(const std::string& moduleName, size_t gObjectsOffset, size_t gNamesOffset, size_t processEventPtr);
 
 template<typename Fn>
 inline Fn GetVFunction(const void* instance, std::size_t index)

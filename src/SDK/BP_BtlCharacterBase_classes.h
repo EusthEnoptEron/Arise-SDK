@@ -190,7 +190,6 @@ public:
 	void BndEvt__BattleStatusComponent_K2Node_ComponentBoundEvent_4_BtlStatusAbnormalSignature__DelegateSignature(class UBtlStatusComponent* SelfComponent, EAbnormalType AbnormalType);
 	void BndEvt__BattleStatusComponent_K2Node_ComponentBoundEvent_5_BtlStatusAbnormalSignature__DelegateSignature(class UBtlStatusComponent* SelfComponent, EAbnormalType AbnormalType);
 	void OnManualTurnBegin(float RotationRate);
-	void 򹘞򬿾�0{k();
 	void OnManualTurnEnd();
 	void PlayFlashRaidEnable();
 	void OnAnimChangeGravityTick(float GravityScale);
