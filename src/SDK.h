@@ -242,6 +242,9 @@
 #include "SDK/ActorSequence_classes.h"
 #include "SDK/ActorSequence_parameters.h"
 
+#include "SDK/TO14_BPI_GUI_BTL_STATUS_PARTY_BASE_classes.h"
+#include "SDK/TO14_BPI_GUI_BTL_STATUS_PARTY_BASE_parameters.h"
+#include "SDK/TO14_BPI_GUI_BTL_STATUS_PARTY_BASE_structs.h"
 /*
 #include "SDK/ABP_CHR_NFC_HUM_000_PHY_structs.h"
 #include "SDK/ABP_CHR_NFC_HUM_000_PHY_classes.h"
