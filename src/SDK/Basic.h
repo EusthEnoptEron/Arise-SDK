@@ -114,6 +114,37 @@ private:
 	int32_t NumChunks;
 };
 
+class FChunkedFixedUObjectArray
+{
+public:
+	inline int Num() const
+	{
+		return NumElements;
+	}
+
+	inline FUObjectItem const* GetObjectPtr(int Index) const
+	{
+		auto ElementsPerChunk = MaxElements / MaxChunks;
+		auto ChunkIndex = Index / ElementsPerChunk;
+		auto WithinChunkIndex = Index % ElementsPerChunk;
+		auto Chunk = Objects[ChunkIndex];
+		return Chunk + WithinChunkIndex;
+	}
+
+	inline FUObjectItem const& GetByIndex(int Index) const
+	{
+		return *GetObjectPtr(Index);
+	}
+
+private:
+	FUObjectItem** Objects;
+	FUObjectItem* PreAllocatedObjects;
+	int MaxElements;
+	int NumElements;
+	int MaxChunks;
+	int NumChunks;
+};
+
 class FUObjectArray
 {
 public:
@@ -122,6 +153,11 @@ public:
 	int32_t MaxObjectsNotConsideredByGC;
 	int32_t OpenForDisregardForGC;
 	TUObjectArray ObjObjects;
+
+	inline FChunkedFixedUObjectArray GetAsChunckArray() const
+	{
+		return (FChunkedFixedUObjectArray&)ObjObjects;
+	}
 };
 
 template<class T>

@@ -41,10 +41,32 @@ public:
 	{
 		ProcessEventPtr(this, function, parms);
 	}
+	static inline bool IsChunkedArray() {
+		return true;
+	}
 
 	template<typename T>
 	static T* FindObject(const std::string& name)
 	{
+		if (IsChunkedArray())
+		{
+			for (int i = 0; i < GObjects->GetAsChunckArray().Num(); ++i)
+			{
+				auto object = GObjects->GetAsChunckArray().GetByIndex(i).Object;
+
+				if (object == nullptr)
+				{
+					continue;
+				}
+
+				if (object->GetFullName() == name)
+				{
+					return static_cast<T*>(object);
+				}
+			}
+			return nullptr;
+		}
+
 		for (int i = 0; i < GetGlobalObjects().Num(); ++i)
 		{
 			auto object = GetGlobalObjects().GetByIndex(i);
@@ -66,6 +88,26 @@ public:
 	static T* FindObject()
 	{
 		auto v = T::StaticClass();
+
+		if (IsChunkedArray())
+		{
+			for (int i = 0; i < GObjects->GetAsChunckArray().Num(); ++i)
+			{
+				auto object = GObjects->GetAsChunckArray().GetByIndex(i).Object;
+
+				if (object == nullptr)
+				{
+					continue;
+				}
+
+				if (object->IsA(v))
+				{
+					return static_cast<T*>(object);
+				}
+			}
+			return nullptr;
+		}
+
 		for (int i = 0; i < SDK::UObject::GetGlobalObjects().Num(); ++i)
 		{
 			auto object = SDK::UObject::GetGlobalObjects().GetByIndex(i);
@@ -109,6 +151,27 @@ public:
 	{
 		std::vector<T*> ret;
 		auto v = T::StaticClass();
+
+		if (IsChunkedArray())
+		{
+			for (int i = 0; i < GObjects->GetAsChunckArray().Num(); ++i)
+			{
+				auto object = GObjects->GetAsChunckArray().GetByIndex(i).Object;
+
+				if (object == nullptr)
+				{
+					continue;
+				}
+
+				if (object->IsA(v))
+				{
+					ret.push_back(static_cast<T*>(object));
+				}
+			}
+			return ret;
+		}
+
+
 		for (int i = 0; i < SDK::UObject::GetGlobalObjects().Num(); ++i)
 		{
 			auto object = SDK::UObject::GetGlobalObjects().GetByIndex(i);
